@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option go_package = "api-gateway/spec";
+
+message SortingRequest{
+  string method = 1;
+  repeated int64 arr = 3;
+}
+
+message SoritingResponse{
+  string method = 1;
+  repeated int64 sortedArr = 2;
+  string time = 3;
+}
