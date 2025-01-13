@@ -72,7 +72,7 @@ func Consumer(ctx context.Context) {
 				service.MergeSort(arr, left, right, ctx,d.ReplyTo)
 			case "insertion":
 				service.InsertionSort(arr, ctx,d.ReplyTo)
-			case "select":
+			case "selectionsort":
 				service.SelctionSort(arr, ctx,d.ReplyTo)
 			}
 		}
