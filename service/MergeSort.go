@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func Merge(arr []int64, left, mid, right int) {
+func Merge(arr []int64, left, mid, right int) []int64 {
 	n1 := mid - left + 1
 	n2 := right - mid
 
@@ -45,25 +45,31 @@ func Merge(arr []int64, left, mid, right int) {
 		k++
 		j++
 	}
+
+
+	return arr
 }
 
-func MergeSort(arr []int64, left, right int, ctx context.Context,ReplyTo string) {
-
+func MergeSort(arr []int64, left, right int, ctx context.Context, ReplyTo string) {
 	startTime := time.Now()
 
 	if left < right {
 		mid := left + (right-left)/2
 
-		MergeSort(arr, left, mid, ctx,ReplyTo)
-		MergeSort(arr, mid+1, right, ctx,ReplyTo)
+		MergeSort(arr, left, mid, ctx, ReplyTo)
+		MergeSort(arr, mid+1, right, ctx, ReplyTo)
 
-		Merge(arr, left, mid, right)
+		arr = Merge(arr, left, mid, right)
 	}
 
-	endTime := time.Now()
-	timeTaken := endTime.Sub(startTime)
-	duration := timeTaken.String() // Convert the duration to a string
+	// Send the sorted array only after the final recursion returns
+	if left == 0 && right == len(arr)-1 {
+		endTime := time.Now()
+		timeTaken := endTime.Sub(startTime)
+		duration := timeTaken.String()
 
-	producers.SendSortedREsponse("merge", arr, duration, ctx,ReplyTo)
+		producers.SendSortedREsponse("merge", arr, duration, ctx, ReplyTo)
+	}
+
 
 }

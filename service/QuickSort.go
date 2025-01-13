@@ -27,22 +27,24 @@ func Partition(arr []int64, low, high int) int {
 }
 
 // QuickSort function to sort the array
-func QuickSort(arr []int64, low, high int, ctx context.Context, ReplyTo string) {
-
-	startTime := time.Now()
-
+func QuickSort(arr []int64, low, high int, ctx context.Context, ReplyTo string) []int64 {
 	if low < high {
 		pi := Partition(arr, low, high) // Partitioning index
 
 		// Recursively sort the two halves
-		QuickSort(arr, low, pi-1, ctx,ReplyTo)
-		QuickSort(arr, pi+1, high, ctx,ReplyTo)
+		QuickSort(arr, low, pi-1, ctx, ReplyTo)
+		QuickSort(arr, pi+1, high, ctx, ReplyTo)
 	}
 
-	endTime := time.Now()
-	timeTaken := endTime.Sub(startTime)
-	duration := timeTaken.String() // Convert the duration to a string
+	// Send the sorted array and duration only after the final recursion returns
+	if low == 0 && high == len(arr)-1 {
+		startTime := time.Now()
+		endTime := time.Now()
+		timeTaken := endTime.Sub(startTime)
+		duration := timeTaken.String() // Convert the duration to a string
 
-	producers.SendSortedREsponse("quick", arr, duration, ctx, ReplyTo)
+		producers.SendSortedREsponse("quick", arr, duration, ctx, ReplyTo)
+	}
 
+	return arr
 }

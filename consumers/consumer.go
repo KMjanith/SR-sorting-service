@@ -64,6 +64,7 @@ func Consumer(ctx context.Context) {
 			case "quick":
 				low := 0
 				high := len(arr) - 1
+				log.Println(d.ReplyTo)
 				service.QuickSort(arr, low, high, ctx,d.ReplyTo)
 			case "merge":
 				left := 0

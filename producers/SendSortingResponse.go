@@ -17,6 +17,8 @@ func SendSortedREsponse(method string, sortedArr []int64, time string, ctx conte
 		Time:      time,
 	}
 
+	log.Println(sortedArr)
+
 	ch := ctx.Value("producerChannel")
 
 	// Serialize message using protobuf
